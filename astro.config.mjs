@@ -2,24 +2,25 @@ import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import markdoc from '@astrojs/markdoc';
 
-// https://astro.build/config
 export default defineConfig({
-  // Garante que o site seja gerado como arquivos estáticos (HTML puro)
   output: 'static',
-  
-  // As integrações essenciais para o seu conteúdo
   integrations: [
     react(), 
     markdoc()
   ],
-
-  // Se o seu site estiver em uma subpasta no futuro, ajustar o 'base'
   base: '/',
-
-  // ADICIONE ESTE BLOCO ABAIXO:
+  // Configuração reforçada para o Netlify Studio
   vite: {
     server: {
-      allowedHosts: true
+      allowedHosts: [
+        'devserver-preview--kamaleao.netlify.app',
+        '.netlify.app' // Isso libera qualquer subdomínio do Netlify
+      ]
     }
+  },
+  // Algumas versões do Astro/Netlify pedem isso aqui também:
+  server: {
+    host: true,
+    allowedHosts: true
   }
 });
