@@ -11,7 +11,7 @@ O que &eacute; um Mascote?</span></strong><br />
 <em>Mascote &eacute; um bichinho que representa simbolicamente alguma coisa: uma site, uma padaria, uma loja, um evento, um time de futebol, etc.</em></p>
 <p style="text-align: center; "><br />
 <img src="https://i.imgur.com/gh5aIqH.jpg" width="500" height="500" alt="" /><br />
-Um mascote &eacute; uma figura simb&oacute;lica ou personagem que &eacute; associada a uma marca, empresa, organiza&ccedil;&atilde;o ou equipe esportiva. Geralmente, os mascotes s&atilde;o animais, criaturas imagin&aacute;rias ou objetos antropomorfizados, como rob&ocirc;s ou frutas.</p>
+Um mascote &eacute; uma figura simb&oacute;lica ou personagem que &eacute; associada a uma marca, empresa, organiza&ccedil;&atilde;o ou equipe esportiva. Geralmente, os mascotes s&atilde;o animais, criaturas imagin&aacute;rias ou objetos antropomorfizados, como rob&ocirc;s ou frutas ou insetos.</p>
 <p style="text-align: center; ">&nbsp;</p>
 <p style="text-align: center; ">Os mascotes s&atilde;o usados para promover a identidade e a imagem de uma marca ou organiza&ccedil;&atilde;o, tornando-a mais facilmente reconhec&iacute;vel e memor&aacute;vel para o p&uacute;blico. Eles tamb&eacute;m podem ser usados para criar uma conex&atilde;o emocional com o p&uacute;blico, especialmente com as crian&ccedil;as.</p>
 <p style="text-align: center; "><br />
