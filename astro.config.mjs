@@ -4,6 +4,16 @@ import markdoc from '@astrojs/markdoc';
 
 // https://astro.build/config
 export default defineConfig({
-  // Removemos o keystatic() daqui
-  integrations: [react(), markdoc()],
+  // Garante que o site seja gerado como arquivos estáticos (HTML puro)
+  output: 'static',
+  
+  // As integrações essenciais para o seu conteúdo
+  integrations: [
+    react(), 
+    markdoc()
+  ],
+
+  // Se o seu site estiver em uma subpasta no futuro, ajustar o 'base'
+  // Mas por enquanto, deixamos o padrão da raiz
+  base: '/',
 });
