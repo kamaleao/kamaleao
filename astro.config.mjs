@@ -14,6 +14,12 @@ export default defineConfig({
   ],
 
   // Se o seu site estiver em uma subpasta no futuro, ajustar o 'base'
-  // Mas por enquanto, deixamos o padrão da raiz
   base: '/',
+
+  // ADICIONE ESTE BLOCO ABAIXO:
+  vite: {
+    server: {
+      allowedHosts: true
+    }
+  }
 });
