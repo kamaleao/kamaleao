@@ -1,10 +1,9 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
   server: {
-    allowedHosts: true // Isso libera o acesso de qualquer endereço de preview do Netlify
+    allowedHosts: true // Isso aqui é o que vai sumir com aquele erro da imagem
   }
 })
