@@ -1,8 +1,9 @@
 import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react' // ou seu plugin (vue, etc)
+import react from '@vitejs/plugin-react'
 
+// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()], // mantenha seus plugins se já existirem
+  plugins: [react()],
   server: {
     allowedHosts: [
       'devserver-preview--kamaleao.netlify.app'
