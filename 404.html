@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="robots" content="noindex,follow">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Página não encontrada</title>
+  <style>
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;padding:24px;line-height:1.4}
+    .muted{opacity:.75}
+    a{color:inherit}
+  </style>
+</head>
+<body>
+  <h1>Página não encontrada</h1>
+  <p class="muted">Tentando te redirecionar…</p>
+  <p class="muted" id="status"></p>
+
+<script>
+(async function () {
+  const statusEl = document.getElementById("status");
+
+  function setStatus(msg) {
+    if (statusEl) statusEl.textContent = msg;
+  }
+
+  function safeRedirect(url) {
+    // replace evita “voltar pro 404” no botão voltar
+    location.replace(url);
+  }
+
+  function parentLevel(pathname) {
+    // Ex.: /mascotes/8410/slug -> /mascotes/
+    const parts = pathname.split("?")[0].split("#")[0].split("/").filter(Boolean);
+    if (parts.length >= 1) return "/" + parts[0] + "/";
+    return "/";
+  }
+
+  async function fetchText(url) {
+    const resp = await fetch(url, { cache: "no-cache" });
+    if (!resp.ok) throw new Error("fetch failed: " + url);
+    return await resp.text();
+  }
+
+  function findCanonicalInXml(xml, section, id) {
+    // Procura <loc>.../{section}/{id}/{slug}...</loc>
+    const re = new RegExp(`<loc>([^<]*\\/${section}\\/${id}\\/[^<]*)<\\/loc>`);
+    const m = xml.match(re);
+    return m && m[1] ? m[1] : null;
+  }
+
+  try {
+    const pathname = location.pathname || "/";
+    const m = pathname.match(/^\/([^\/]+)\/(\d+)(?:\/|$)/);
+
+    // Se não tem /secao/id, manda pra / (ou você pode mandar pra parentLevel mesmo)
+    if (!m) {
+      setStatus("Voltando para a página inicial…");
+      safeRedirect("/");
+      return;
+    }
+
+    const section = m[1];
+    const id = m[2];
+
+    // Se você quiser limitar só a certas seções, deixe assim.
+    // Se quiser aplicar a QUALQUER seção com /{secao}/{id}, basta esvaziar a lista ou remover o if.
+    const allowedSections = new Set(["mascotes", "saoluis", "gospel"]);
+    if (!allowedSections.has(section)) {
+      // Para seções não permitidas, cai “um nível acima”
+      const fallback = parentLevel(pathname);
+      setStatus(`Indo para ${fallback}…`);
+      safeRedirect(fallback);
+      return;
+    }
+
+    setStatus("Consultando o sitemap para encontrar a URL correta…");
+
+    // 1) tenta /sitemap.xml
+    let xml = await fetchText("/sitemap.xml");
+
+    // 2) se for sitemap index (contém vários sitemaps), varre alguns
+    if (xml.includes("<sitemapindex")) {
+      const locs = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map(x => x[1]);
+
+      // Limite pra não travar (ajuste se quiser)
+      for (const loc of locs.slice(0, 30)) {
+        try {
+          // loc pode ser absoluta; tenta buscar como está; se falhar, tenta caminho relativo
+          let subXml;
+          try {
+            subXml = await fetchText(loc);
+          } catch {
+            // tenta converter para relativo se for do mesmo domínio
+            const rel = loc.replace(location.origin, "");
+            subXml = await fetchText(rel);
+          }
+
+          const canonical = findCanonicalInXml(subXml, section, id);
+          if (canonical) {
+            setStatus("URL encontrada. Redirecionando…");
+            safeRedirect(canonical);
+            return;
+          }
+        } catch (e) {
+          // ignora e tenta o próximo sitemap
+        }
+      }
+
+      // não achou em nenhum sitemap listado
+      const fallback = parentLevel(pathname);
+      setStatus(`Não encontrei a URL correta. Indo para ${fallback}…`);
+      safeRedirect(fallback);
+      return;
+    }
+
+    // sitemap “normal”
+    const canonical = findCanonicalInXml(xml, section, id);
+    if (canonical) {
+      setStatus("URL encontrada. Redirecionando…");
+      safeRedirect(canonical);
+      return;
+    }
+
+    // Se não achou o id no sitemap, manda para “um nível acima”
+    const fallback = parentLevel(pathname);
+    setStatus(`Não encontrei a URL correta. Indo para ${fallback}…`);
+    safeRedirect(fallback);
+
+  } catch (e) {
+    // Em qualquer erro, manda para “um nível acima” se possível, senão /
+    const fallback = (function(){
+      try { return parentLevel(location.pathname || "/"); } catch { return "/"; }
+    })();
+    safeRedirect(fallback || "/");
+  }
+})();
+</script>
+
+<noscript>
+  <p class="muted">Seu navegador está com JavaScript desativado. Volte para a <a href="/">página inicial</a>.</p>
+</noscript>
+</body>
+</html>
