@@ -1,0 +1,16 @@
+---
+title: "Programa Disparate na Rádio Universidade FM"
+id: 3184
+blog: "saoluis"
+date: 2010-09-22T11:57:00.000Z
+thumb: ""
+---
+
+<p style="text-align: center; "><img alt="" src="https://lh5.ggpht.com/_mqdmxh-iBls/TJqYaxKXLJI/AAAAAAABwXY/j_RCkWu-ku4/s500/disparate.jpg" /><br />
+<strong><span style="font-size: medium; ">Programa Disparate na R&aacute;dio Universidade FM</span></strong><br />
+No pr&oacute;ximo s&aacute;bado, 25 de setembro, &agrave;s 11 h, est&aacute; marcada a estreia do programa &ldquo;Disparate&rdquo;, na R&aacute;dio Universidade FM. Com dura&ccedil;&atilde;o de uma hora, a edi&ccedil;&atilde;o ter&aacute; blocos de informa&ccedil;&atilde;o, entretenimento, presta&ccedil;&atilde;o de servi&ccedil;os, entrevista, humor e abordar&aacute; temas relevantes do universo de estudantes do ensino superior e da juventude em geral. Na pauta, constam ainda informa&ccedil;&otilde;es sobre mercado de trabalho e divulga&ccedil;&atilde;o de pesquisas acad&ecirc;micas.</p>
+<p style="text-align: center; ">O programa foi produzido inicialmente no Laborat&oacute;rio de R&aacute;dio do Curso com o objetivo de concorrer no Expocom, (concurso de projetos e pe&ccedil;as pr&aacute;ticas dos estudantes, realizado durante o congresso anual da Intercom - Sociedade Brasileira de Estudos Interdisciplinares da Comunica&ccedil;&atilde;o),que &eacute; considerado o maior evento nacional do g&ecirc;nero.E em junho de 2010, o Disparate foi premiado no Expocom-Intercom Nordeste, em Campina Grande, na categoria laboratorial de r&aacute;dio, obtendo o primeiro lugar.</p>
+<p style="text-align: center; ">Segundo o orientador do projeto, professor Ed Wilson Ara&uacute;jo, foi a partir da premia&ccedil;&atilde;o que surgiu a ideia de apresentar o projeto &agrave; R&aacute;dio Universidade, e o di&aacute;logo entre a dire&ccedil;&atilde;o da emissora e a equipe do Disparate, para viabilizar a veicula&ccedil;&atilde;o do mesmo, foi acontecendo em uma s&eacute;rie de reuni&otilde;es, nas quais ajustes e formata&ccedil;&atilde;o amadureceram. Agora, segundo Ed Wilson, Disparate est&aacute; pronto para a estreia. E, nessa oportunidade, &eacute; importante destacar que o projeto foi todo idealizado e produzido pelos estudantes, que optaram pelo formato da revista radiof&ocirc;nica. &quot;A qualidade do trabalho levou o mesmo &agrave; premia&ccedil;&atilde;o no Intercom Nordeste e a dire&ccedil;&atilde;o da r&aacute;dio foi sens&iacute;vel e receptiva &agrave; proposta de incorpor&aacute;-lo &agrave; grade de programa&ccedil;&atilde;o&quot;, conta o professor.</p>
+<p style="text-align: center; ">Wilson ressaltou ainda que o conte&uacute;do diversificado vai proporcionar ao p&uacute;blico informa&ccedil;&atilde;o, humor e presta&ccedil;&atilde;o de servi&ccedil;os em uma linguagem acess&iacute;vel &agrave; comunidade universit&aacute;ria e &agrave; sociedade em geral.</p>
+<p style="text-align: center; ">O programa ser&aacute; apresentado por Ricardo Fernandes, Bruna Almeida e Venilson Gusm&atilde;o, que integram tamb&eacute;m a equipe de produ&ccedil;&atilde;o formada por Emilly Castelo Branco, Nayala Duailibe, Victor Hugo, Ana L&uacute;cia Lopes, Ilka Chaves e Izabel Almeida.</p>
+<p style="text-align: center; ">Confira o Disparate: estreia dia 25/09 &agrave;s 11h da manh&atilde; na R&aacute;dio Universidade FM, 106,9.</p>

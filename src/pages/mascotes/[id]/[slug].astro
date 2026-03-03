@@ -1,0 +1,180 @@
+---
+import { getCollection } from "astro:content";
+
+/** =========================
+ * getStaticPaths
+ * ========================= */
+export async function getStaticPaths() {
+  const COLLECTION_NAME = "blog"; 
+  const BLOG_FILTER = "mascotes"; 
+
+  const all = await getCollection(COLLECTION_NAME);
+  const mascotes = all.filter((p) => String(p.data.blog ?? "").toLowerCase() === BLOG_FILTER);
+
+  return mascotes.map((post) => {
+    const id = String(post.data.id ?? "").trim();
+    const rawTitle = String(post.data.title ?? post.data.titulo ?? post.data.name ?? post.slug ?? "")
+      .replace(/\s+/g, " ")
+      .trim();
+
+    const baseSlug = rawTitle
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .trim()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+
+    const cleaned = (baseSlug && id) ? baseSlug.replace(new RegExp(`^${id}-`), "") : baseSlug;
+
+    return {
+      params: { id, slug: cleaned || baseSlug || post.slug },
+      props: { entryId: id },
+    };
+  });
+}
+
+/** =========================
+ * Page data
+ * ========================= */
+const SITE = "https://kamaleao.com";
+const COLLECTION_NAME = "blog"; 
+const BLOG_FILTER = "mascotes"; 
+
+const { id, slug } = Astro.params;
+const { entryId } = Astro.props;
+
+const all = await getCollection(COLLECTION_NAME);
+const mascotes = all
+  .filter((p) => String(p.data.blog ?? "").toLowerCase() === BLOG_FILTER)
+  .sort((a, b) => {
+    const da = new Date(a.data.date ?? a.data.pubDate ?? a.data.updated ?? 0).getTime();
+    const db = new Date(b.data.date ?? b.data.pubDate ?? b.data.updated ?? 0).getTime();
+    return db - da;
+  });
+
+let entry = mascotes.find((p) => String(p.data.id ?? "").trim() === String(entryId ?? id).trim());
+
+if (!entry) {
+  entry = mascotes.find((p) => {
+    const pid = String(p.data.id ?? "").trim();
+    const t = String(p.data.title ?? p.data.titulo ?? p.data.name ?? p.slug ?? "").replace(/\s+/g, " ").trim();
+    const s = t.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+    const cleaned = (s && pid) ? s.replace(new RegExp(`^${pid}-`), "") : s;
+    return cleaned === String(slug);
+  });
+}
+
+if (!entry) {
+  throw new Error(`Mascote não encontrado para id="${id}" slug="${slug}"`);
+}
+
+const title = String(entry.data.title ?? entry.data.titulo ?? entry.data.name ?? entry.slug ?? "").trim();
+const description = String(entry.data.description ?? entry.data.descricao ?? entry.data.summary ?? "").trim() || `Orçamento para produção de ${title}`;
+const thumb = String(entry.data.thumb ?? entry.data.thumbnail ?? entry.data.image ?? "").trim() || "https://kamaleao.com/topokas2.svg";
+const idFinal = String(entry.data.id ?? id).trim();
+
+const canonicalSlug = title.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+const canonicalUrl = `${SITE}/mascotes/${idFinal}/${canonicalSlug}`;
+
+const { Content } = await entry.render();
+
+// Navegação
+const currentIndex = mascotes.findIndex((p) => String(p.data.id ?? "").trim() === idFinal);
+const newer = currentIndex > 0 ? mascotes[currentIndex - 1] : null;
+const older = currentIndex >= 0 && currentIndex < mascotes.length - 1 ? mascotes[currentIndex + 1] : null;
+
+function makeUrl(p) {
+  const pid = String(p.data.id ?? "").trim();
+  const t = String(p.data.title ?? p.data.titulo ?? p.data.name ?? p.slug ?? "").trim();
+  const s = t.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(new RegExp(`^${pid}-`), "");
+  return `${SITE}/mascotes/${pid}/${s}`;
+}
+
+const newerUrl = newer ? makeUrl(newer) : "";
+const olderUrl = older ? makeUrl(older) : "";
+const cards144 = mascotes.slice(0, 144);
+
+// Busca (Prepara o JSON para o Script)
+const searchIndex = mascotes.slice(0, 500).map(p => ({
+  id: p.data.id,
+  title: p.data.title || p.data.titulo,
+  url: makeUrl(p),
+  thumb: p.data.thumb || p.data.image
+}));
+---
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>{title}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="canonical" href={canonicalUrl} />
+  
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f4f4f4; }
+    #pagewrap { max-width: 1124px; margin: auto; background: white; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    .header-table { width: 100%; border-collapse: collapse; background: #fff; }
+    .yellow-bar { background: #FFCC00; padding: 20px; text-align: center; border-bottom: 2px solid #E5BA09; }
+    .content-area { padding: 20px; line-height: 1.6; }
+    .whatsapp-float { position: fixed; bottom: 20px; right: 20px; background: #2CB742; color: white; padding: 15px; border-radius: 50px; text-decoration: none; font-weight: bold; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+    .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 10px; padding: 20px; }
+    .card { border: 1px solid #ddd; padding: 5px; text-align: center; font-size: 11px; border-radius: 8px; }
+    .card img { width: 100px; height: 100px; object-fit: cover; border-radius: 4px; }
+  </style>
+</head>
+
+<body>
+  <div id="pagewrap">
+    <table class="header-table">
+      <tr>
+        <td width="50" align="center">{newerUrl && <a href={newerUrl} style="font-size:30px">👈</a>}</td>
+        <td align="center">
+          <img src="https://kamaleao.com/topokas2.svg" width="180" alt="Logo" />
+          <h2 style="margin:0; font-size:16px;">Criação de Mascotes</h2>
+        </td>
+        <td width="50" align="center">{olderUrl && <a href={olderUrl} style="font-size:30px">👉</a>}</td>
+      </tr>
+    </table>
+
+    <div class="yellow-bar">
+      <h1 style="background: white; display: inline-block; padding: 10px 20px; border-radius: 30px; font-size: 24px;">{title}</h1>
+    </div>
+
+    <div class="content-area">
+      <Content />
+    </div>
+
+    <div class="cards-grid">
+      {cards144.map((p) => (
+        <a href={makeUrl(p)} class="card">
+          <img src={p.data.thumb || p.data.image || "/placeholder.jpg"} alt={p.data.title} />
+          <p>{p.data.title || p.data.titulo}</p>
+        </a>
+      ))}
+    </div>
+
+    <a href={`https://wa.me/5598981044545?text=Interesse no mascote: ${title}`} class="whatsapp-float">
+       Pedir Orçamento via WhatsApp
+    </a>
+  </div>
+
+  <script is:inline define:vars={{ searchIndex, canonicalUrl }}>
+    // Busca simples
+    console.log("Busca carregada com", searchIndex.length, "itens");
+    
+    // Função de compartilhar (se você tiver um botão com id="share-btn")
+    const shareBtn = document.getElementById('share-btn');
+    if(shareBtn) {
+      shareBtn.onclick = () => {
+        if (navigator.share) {
+          navigator.share({ url: canonicalUrl });
+        } else {
+          alert("Link copiado: " + canonicalUrl);
+        }
+      }
+    }
+  </script>
+</body>
+</html>

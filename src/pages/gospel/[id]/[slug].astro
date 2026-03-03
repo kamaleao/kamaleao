@@ -1,0 +1,92 @@
+---
+import { getCollection } from 'astro:content';
+import LayoutGospel from '../../../layouts/LayoutGospel.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => data.blog === 'gospel');
+  
+  // Ordenação decrescente por ID
+  posts.sort((a, b) => b.data.id - a.data.id);
+
+  const getCleanSlug = (m) => {
+    let rawSlug = m.data.slug || m.slug.split('/').pop();
+    const prefixoId = `${m.data.id}-`;
+    if (rawSlug.startsWith(prefixoId)) {
+      rawSlug = rawSlug.replace(prefixoId, '');
+    }
+    return rawSlug;
+  };
+
+  // Usando .map para gerar apenas uma rota por postagem
+  return posts.map((post, index) => {
+    const postId = post.data.id.toString();
+    const canonicalSlug = getCleanSlug(post);
+    
+    const nextPost = index > 0 ? posts[index - 1] : null; 
+    const prevPost = index < posts.length - 1 ? posts[index + 1] : null;
+
+    const prevLink = prevPost ? `/gospel/${prevPost.data.id}/${getCleanSlug(prevPost)}` : null;
+    const nextLink = nextPost ? `/gospel/${nextPost.data.id}/${getCleanSlug(nextPost)}` : null;
+
+    return {
+      params: { 
+        id: postId, 
+        slug: canonicalSlug 
+      },
+      props: { post, canonicalSlug, prevLink, nextLink },
+    };
+  });
+}
+
+const { id, slug } = Astro.params;
+const { post, canonicalSlug, prevLink, nextLink } = Astro.props;
+const { Content } = await post.render();
+
+const siteUrl = Astro.site ? Astro.site.toString().replace(/\/$/, '') : 'https://kamaleao.com';
+const canonicalUrl = `${siteUrl}/gospel/${id}/${canonicalSlug}`;
+---
+
+<LayoutGospel 
+  title={`${post.data.title} | Kamaleao Gospel`} 
+  canonical={canonicalUrl} 
+  image={post.data.thumb}
+>
+  <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px;">
+    {prevLink ? <a href={prevLink} style="font-size: 30px; text-decoration:none;">👈</a> : <div style="width:40px;"></div>}
+    <a href="/gospel" style="text-align: center; color: #000; text-decoration:none;">
+       <strong style="font-size: 18px; display: block;">Kamaleao Gospel</strong>
+       <span style="font-size: 10px;">Onde Tem Jesus, Tem Kamaleao!</span>
+    </a>
+    {nextLink ? <a href={nextLink} style="font-size: 30px; text-decoration:none;">👉</a> : <div style="width:40px;"></div>}
+  </div>
+
+  <div style="background-color: #EEF1F7; padding: 15px; text-align: center; border-radius: 10px; margin: 10px;">
+    <h1>
+      <div style="padding:10px; text-align: left;">
+        <p style="background-color:#FFF; padding:10px; border-radius:17px; margin:0px; font-size: 24px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">{post.data.title}</p>
+        <div style="font-size: 10px; color: #006699; text-align:center; margin-top:6px;">{post.data.title}</div>
+      </div>
+    </h1>
+    <button onclick={`navigator.share({url: '${canonicalUrl}'})`} style="background: none; border: none; cursor: pointer; color: #333;">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8m-11-8 4-4 4 4m-4-4v12"/></svg>
+    </button>
+  </div>
+
+  <div style="text-align: right; padding: 0 20px; margin-bottom: 10px;">
+    <button onclick="const t = document.getElementById('gospel-body').innerText; navigator.clipboard.writeText(t); alert('Texto copiado!');" style="padding: 6px 12px; border-radius: 6px; border: 1px solid #ccc; background: #fff; cursor: pointer; font-size: 14px;">
+      📋 Copiar Mensagem
+    </button>
+  </div>
+
+  <div id="gospel-body" style="padding: 20px; font-size: 18px; line-height: 1.8; color: #333;">
+    <Content />
+    
+    <div style="text-align: center; margin-top: 40px; padding: 20px; border-top: 1px solid #eee;">
+      <a href={`https://api.whatsapp.com/send?phone=5598981044545&text=Eu quero! Ore por mim. ${canonicalUrl}`} target="_blank" style="text-decoration: none; color: #333;">
+        <p><strong>Jesus é o caminho, a verdade e a vida.</strong></p>
+        <img src="https://i.pinimg.com/474x/a5/2c/0f/a52c0f83283969c6e4348e96735b8e88.jpg" alt="Whatsapp Oração" width="100" height="100" style="border-radius: 50%; border: 2px solid #339900; padding: 3px;" /><br />
+        Diga: <strong>Eu quero!</strong> para receber oração.
+      </a>
+    </div>
+  </div>
+</LayoutGospel>

@@ -1,0 +1,122 @@
+---
+import { getCollection } from 'astro:content';
+import LayoutGospel from '../../layouts/LayoutGospel.astro';
+
+const todosGospel = await getCollection('blog', ({ data }) => data.blog === 'gospel');
+const postsOrdenados = todosGospel.sort((a, b) => b.data.id - a.data.id);
+const postsPagina1 = postsOrdenados.slice(0, 24);
+
+const getCleanSlug = (m) => {
+  let rawSlug = m.data.slug || m.slug.split('/').pop();
+  const prefixoId = `${m.data.id}-`;
+  if (rawSlug.startsWith(prefixoId)) {
+    rawSlug = rawSlug.replace(prefixoId, '');
+  }
+  return rawSlug;
+};
+
+// Dados para a busca local
+const searchData = postsOrdenados.map(m => ({
+  title: m.data.title,
+  url: `/gospel/${m.data.id}/${getCleanSlug(m)}`,
+  thumb: m.data.thumb
+}));
+---
+
+<LayoutGospel title="Kamaleao Gospel | Onde Tem Jesus, Tem Kamaleao!" canonical="https://kamaleao.com/gospel">
+  
+  <table width="100%" border="0" align="center" cellpadding="0" cellspacing="2" style="font-size:30px">
+    <tr>
+      <td align="left">👈</td>
+      <td align="center">
+        <a style="color:#000;text-decoration:none" href="/gospel">
+          <div style="margin:auto; padding:4px">
+            <div style="font-size: 15px;font-weight:bold;font-variant-caps: all-small-caps;font-stretch: expanded;white-space: nowrap;letter-spacing: 0.0600em;text-align:left">
+              <img src="https://lh3.googleusercontent.com/-VxxxLxjMNww/Zk1Qe4PQttI/AAAAAAAWyhE/Vk9vf5heFgwCgpIfB-nEWBUBM9JdW2AaQCNcBGAsYHQ/h380/LOGO-KAMALEAO-GOSPEL.png" style="border:1px solid #000000; height: 22px; float: left; margin-right: 3px;margin-bottom:15px; position: relative; z-index: 1;">
+              Kamaleao Gospel
+            </div>
+            <div style="font-size: 10px; margin-top:-2px;text-align:left">Onde Tem Jesus, Tem Kamaleao!</div>
+          </div>
+        </a>
+      </td>
+      <td align="center" style="vertical-align:top">
+        <div style="margin:auto; padding:4px">
+          <div style="font-size: 15px;font-weight:bold;text-align:right">
+            <form id="search-form" class="mb-3">
+              <input name="search" type="text" style="width:100px; padding: 2px;" id="search-input" placeholder="Buscar"> 
+              <button type="submit" style="cursor: pointer; background: none; border: none;"> 🔎 </button>
+            </form>
+          </div>
+        </div>
+      </td>
+      <td align="right">
+        {postsOrdenados.length > 24 && <a href="/gospel/2">👉</a>}
+      </td>
+    </tr>
+  </table>
+
+  <div id="search-results" style="display: flex; flex-wrap: wrap; justify-content: center; background-color: #EEF1F7; width: 100%;"></div>
+
+  <table id="grid-principal" width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td align="center" valign="top" style="display: flex;flex-wrap: wrap; justify-content: center; background-color:#EEF1F7; padding-top: 10px;">
+        {postsPagina1.map(post => (
+          <a class="thumbs" href={`/gospel/${post.data.id}/${getCleanSlug(post)}`} style="text-decoration:none">
+            <div 
+              onmouseover="this.style.border = '2px solid #EEF1F7';" 
+              onmouseout="this.style.border = '2px solid black'" 
+              class="post-link-card" 
+              style="border:2px solid black; border-radius:10px; box-shadow: 0px 0px 10px rgba(0,0,0,0.1); text-align:center; background-color:#FFF; padding:4px; margin:4px; width:184px; height:226px; text-overflow: ellipsis; overflow:hidden; display: block; float:left; line-height:1.1; color: #333;"
+            > 
+              <img src={post.data.thumb} alt={post.data.title} width="184px" height="184px" style="max-height:184px; object-fit:cover; border-top-left-radius:6px; border-top-right-radius:6px;" />
+              <br/>
+              <span style="font-size: 12px;">{post.data.title}</span>
+              <div style="font-size: 10px;">⭐⭐⭐⭐⭐</div>
+            </div>
+          </a>
+        ))}
+      </td>
+    </tr>
+  </table>
+
+  <script is:inline define:vars={{ searchData }}>
+    const searchForm = document.getElementById("search-form");
+    const searchInput = document.getElementById("search-input");
+    const resultsDiv = document.getElementById("search-results");
+    const gridPrincipal = document.getElementById("grid-principal");
+
+    function removeAccents(str) {
+      return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    }
+
+    searchForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const term = removeAccents(searchInput.value.toLowerCase());
+      const filtrados = searchData.filter(m => removeAccents(m.title.toLowerCase()).includes(term));
+
+      gridPrincipal.style.display = 'none';
+      resultsDiv.innerHTML = '';
+
+      if (filtrados.length === 0) {
+        resultsDiv.innerHTML = '<div style="padding: 20px;">Nenhum resultado encontrado.</div>';
+      } else {
+        filtrados.forEach(item => {
+          resultsDiv.innerHTML += `
+            <a href="${item.url}" class="post-link">
+              <div class="post">
+                <img src="${item.thumb}" alt="${item.title}">
+                <div>${item.title}</div>
+              </div>
+            </a>`;
+        });
+      }
+    });
+
+    searchInput.addEventListener("input", (e) => {
+      if(e.target.value === '') {
+         resultsDiv.innerHTML = '';
+         gridPrincipal.style.display = 'table';
+      }
+    });
+  </script>
+</LayoutGospel>

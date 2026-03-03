@@ -1,0 +1,249 @@
+---
+// src/layouts/LayoutSaoLuis.astro
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  canonical?: string;
+}
+
+const { 
+  title, 
+  description = "Informações atualizadas sobre São Luís do Maranhão", 
+  image = "https://lh3.googleusercontent.com/-qjxLbNFlQjE/XfpiBJZvzKI/AAAAAAAK_mw/Lu931De9UX0cZ3D2OXB2Ah_BqEzqxYzZACLcBGAsYHQ/h120/LOGO-KAMALEAO.png", 
+  canonical = "https://kamaleao.com/saoluis" 
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="pt-BR" xmlns:fb="https://www.facebook.com/2008/fbml">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+    <title>{title}</title>
+
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="theme-color" content="#000000" />
+    
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="São Luís" />
+    <meta property="og:locale" content="pt_BR" />
+    
+    <meta property="fb:app_id" content="143281699036738" />
+    <meta property="fb:admins" content="577844222" />
+    <meta property="fb:pages" content="143724998993780" />
+
+    <link rel="icon" type="image/x-icon" href="https://kamaleao.com/favicon.ico" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <noscript>
+      <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PRGP4GB" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+
+    <div id="fb-root"></div>
+
+    <div id="header">
+      <table width="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td>
+            <table width="100%" border="0" align="center" cellpadding="0" cellspacing="8" bgcolor="#76B304">
+              <tr>
+                <td width="25%" align="center" style="font-family: 'Open Sans', Arial, sans-serif; font-size: 14px; font-weight: bold; color:#FFFFFF;">
+                  <a style="color:#fff" href="https://kamaleao.com/agenda">🥳AGENDA🎵</a>
+                </td>
+                <td width="50%" align="center" id="logo">
+                  <a href="https://kamaleao.com/saoluis">
+                    <img alt="Kamaleao.com" src="https://lh3.googleusercontent.com/-ZijlwdW86Ow/Xm6BSyqvpFI/AAAAAAALO4Y/XzNfyuAvLKAHyTqky01Z4Z8vhMQFemuJQCLcBGAsYHQ/h80/logo_kamaleao.png" border="0" />
+                  </a>
+                </td>
+                <td width="25%" align="center">
+                  <form action="https://www.google.com.br" id="cse-search-box">
+                    <input type="hidden" name="cx" value="partner-pub-4150994051484810:4108064043" />
+                    <input type="hidden" name="oe" value="ISO-8859-1" />
+                    🔎
+                    <input name="q" type="text" style="font-size:20px; background-color:#328400; border:0px;border-radius:5px; width:150px; color:#FFFFFF" size="30" />
+                    <input type="hidden" name="sa" value="Busca" />
+                  </form>
+                </td>
+              </tr>
+            </table>
+            <table border="0" cellpadding="0" cellspacing="0" style="border-top: 1px solid #D9D9D9;border-bottom: 1px solid #D9D9D9; width: 100%;">
+              <tr><td align="center"></td></tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td height="5" align="center" bgcolor="#E6F2CD">
+            &nbsp;<a href="https://kamaleao.com/gospel"><img src="https://i.imgur.com/9YwIoRj.png" border="0" alt="Gospel"></a>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <div id="pagewrap">
+      <div id="content">
+        <slot />
+      </div>
+    </div>
+
+    <div style="width:212px; height:169px; margin:auto; margin-top:20px; background-image:url(https://kamaleao.com/images/kamaleao_sentado_esticado2.webp); background-repeat:no-repeat;"></div>
+    
+    <div id="footer" style="background-color:#000; margin:auto; text-align:center;">
+      <div style="padding:16px; margin:0px; text-align:center;">
+        <span style="color:#FFF;">
+          <div class="menus" style="padding-top:5px; margin:auto; vertical-align:middle; height:32px; color:#FFFFFF;"> 
+            <a style="color:#FFFFFF" href="https://kamaleao.com/mascotes" target="_parent">Fantasias Bonecos Mascotes</a> | 
+            <a style="color:#FFFFFF" href="https://kamaleao.com/saoluis/791/nova-politica-de-privacidade">Política de Privacidade</a> |
+            <a style="color:#FFFFFF" href="https://kamaleao.com/saoluis/16/fale-com-o-kamaleao">Fale Conosco</a>
+          </div>
+        </span>
+        <br>
+      </div>
+    </div>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-7193951-1"></script> 
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-7193951-1');
+    </script> 
+
+    <script is:inline>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-7193951-1', 'auto');
+      ga('send', 'pageview');
+    </script> 
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
+
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v16.0&appId=143281699036738&autoLogAppEvents=1" nonce="ZqO1BHxx"></script> 
+
+    <script is:inline>
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-PRGP4GB');
+    </script> 
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-T13YL14YKM"></script> 
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-T13YL14YKM');
+    </script> 
+
+    <script type="text/javascript" async="async" src="https://www.google.com/jsapi"></script> 
+    <script async="async" src="https://connect.facebook.net/pt_BR/all.js#xfbml=1"></script> 
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4150994051484810" crossorigin="anonymous"></script>
+  </body>
+</html>
+
+<style is:global>
+  /* CSS GLOBAL HERDADO DIRETAMENTE DO TEMPLATE LEGADO */
+  body {
+    margin: 0px 0px 0px 0px;
+    font-family: 'Open Sans', helvetica, arial, sans-serif;
+    font-size: 20px;
+    letter-spacing: -0.5px;
+    background-color: #F4F4F2; /* Fundo do body para combinar com o pagewrap quando a tela for maior que 1360px */
+  }
+  .small { font-size: 12px; }
+  .large { font-size: 20px; }
+  p { margin: 0px 0px 0px 0px; }
+
+  h3 { margin: 0px 0px 0px 0px; font-family: Impact; font-weight: lighter; }
+  
+  a { color: #3B9C00; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  a:focus, a:active { text-decoration: underline; }
+
+  /* STRUCTURE */	
+  #pagewrap {
+    width: 1360px;
+    background-color: #F4F4F2;
+    margin: 0px auto;
+    border-left: 1px solid #fff;
+    border-right: 1px solid #B5D6A7;
+    -webkit-box-shadow: 0px 0px 20px -1px rgba(0, 0, 0, 0.13);
+    -moz-box-shadow: 0px 0px 20px -1px rgba(0, 0, 0, 0.13);
+    box-shadow: 0px 0px 20px -1px rgba(0, 0, 0, 0.13);
+  }
+  #content { width: 1360px; }
+  #sidebar { float: none; background-color: #3B9C00; }
+  #footer { clear: both; }
+
+  /* UTILIDADES LEGADAS */
+  .uiLinkSubtle { font-size: 9px !important; color: #808080; }
+  .alert { color: red; }
+  .alertpink { font-size: 9px; color: #FF69B4; }
+  .a3 { font-size: 11px; }
+  #slideshow > div { position: relative; }
+  
+  #BUT {
+    background-color: #3B9C00;
+    -moz-border-radius: 12px;
+    -webkit-border-radius: 12px;
+    border-radius: 12px;
+    border: 2px solid #3b6e22;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial;
+    font-weight: bold;
+    padding: 0px 22px;
+    text-decoration: none;
+    text-shadow: 2px 2px 0px #2f6627;
+  }
+  #BUT:hover { background-color: #000000; }
+  #BUT:active { position: relative; top: 1px; }
+  li { text-align: left; }
+  .wrapper ul li a { text-align: left; display: block; text-decoration: none; }
+  .wrapper ul li a:hover { text-align: left; color: #FFF; background-color: #00776B; }
+
+  /* MEDIA QUERIES ORIGINAIS */	
+  @media screen and (min-width: 990px) {
+    #postagem { width: 1000px; }
+  }
+
+  @media screen and (max-width: 980px) {
+    #pagewrap { margin: 0px 0px 0px 0px; }
+    #content { width: 1000px; }
+    #sidebar { float: none; margin: 0px 0px 0px 0px; }
+    #header { margin: 0px 0px 0px 0px; }
+  }
+
+  @media screen and (max-width: 920px) {
+    #content { width: auto; float: none; }
+    #sidebar { width: auto; float: none; }
+  }
+
+  @media screen and (max-width: 480px) {
+    #SOME { display: none; }
+    body { background-color: #FFF; }
+    #KAS { display: none; }
+    #header { height: auto; margin: auto; margin: 0px 0px 0px 0px; }
+    #sidebar { float: none; margin: 0px 0px 0px 0px; }
+    #content { margin: 0px 0px 0px 0px; }
+    img { max-width: 100%; height: auto; }
+    form, input { max-width: 250px; }
+    td, tr, table, div, iframe { max-width: 100%; padding-left: 0px; margin-left: 0px; padding-right: 0px; margin-right: 0px; }
+    #pagewrap { margin: 0px 0px 0px 0px; border: 0px; box-shadow: none; }
+    #busca-banner { display:none; }
+  }
+</style>

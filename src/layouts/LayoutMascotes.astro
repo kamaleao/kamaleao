@@ -1,0 +1,123 @@
+---
+// src/layouts/Layout.astro
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  canonical?: string;
+}
+
+const { 
+  title, 
+  description = "Fantasias, Bonecos e Mascotes. Preços, valores, orçamento, prazo de entrega para Produção e Confecção.", 
+  image = "https://lh3.googleusercontent.com/-KPTIIuRxN-w/ZHK5ZqE7BjI/AAAAAAAABJE/xmhLQcQrUcEV6olgiYNdppXdEQrfIvh_ACNcBGAsYHQ/h520/TODOS-MASCOTES-REDES.jpg", 
+  canonical = "https://kamaleao.com" 
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+    <title>{title}</title>
+
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content="Fantasias, Bonecos e Mascotes" />
+    <meta name="theme-color" content="#FFCC00" />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://lh3.googleusercontent.com/-JwgmbTbFio4/ZGkgHu8AKtI/AAAAAAAABBE/aW6XYwjEvd8kDmadA8f0uSg-ko4fmsvrACNcBGAsYHQ/h180/LOGO-KAS-ICON-1X1.png"/>
+    <link rel="icon" type="image/png" sizes="32x32" href="https://lh3.googleusercontent.com/-JwgmbTbFio4/ZGkgHu8AKtI/AAAAAAAABBE/aW6XYwjEvd8kDmadA8f0uSg-ko4fmsvrACNcBGAsYHQ/h32/LOGO-KAS-ICON-1X1.png"/>
+    <link rel="icon" type="image/png" sizes="16x16" href="https://lh3.googleusercontent.com/-JwgmbTbFio4/ZGkgHu8AKtI/AAAAAAAABBE/aW6XYwjEvd8kDmadA8f0uSg-ko4fmsvrACNcBGAsYHQ/h16/LOGO-KAS-ICON-1X1.png"/>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Francois+One&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id="pagewrap">
+      <div id="content">
+        <slot />
+      </div>
+    </div>
+  </body>
+</html>
+
+<style is:global>
+  /* Reset e Estilos Globais Idênticos ao Legado */
+  body {
+    font-size: 16.4px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #333333;
+    margin: 0;
+    overflow-x: hidden;
+    background-color: #FFFFFF;
+  }
+
+  /* Estrutura Principal */
+  #pagewrap {
+    width: 1124px;
+    margin: 0 auto;
+  }
+  
+  #content {
+    width: 100%;
+    margin: auto;
+    background-color: #FFFFFF;
+  }
+
+  /* Tipografia */
+  h1 {
+    margin: 0;
+    text-decoration: none;
+    font-family: 'Francois One', sans-serif !important;
+    font-size: 26px;
+    font-weight: normal;
+    letter-spacing: -0.06em;
+    line-height: 28px;
+  }
+  
+  a {
+    color: #0095F6;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+
+  /* Media Queries do Legado */
+  @media screen and (max-width: 980px) {
+    #pagewrap {
+      width: auto;
+      float: none;
+    }
+    #content {
+      width: auto;
+      float: none;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    #pagewrap {
+      width: 100%;
+      margin: 0;
+      border: 0;
+      box-shadow: none;
+    }
+    #content {
+      width: 100%;
+      margin: 0;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+</style>

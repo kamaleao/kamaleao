@@ -1,0 +1,11 @@
+---
+title: "JESUS - O Deus visível"
+id: 8553
+blog: "gospel"
+date: 2025-06-03T14:31:00.000Z
+thumb: "https://i.pinimg.com/736x/5d/14/e0/5d14e09df9c3febee5621b8b2bd4835a.jpg"
+---
+
+<p style="text-align: center;"><img src="https://i.pinimg.com/736x/5d/14/e0/5d14e09df9c3febee5621b8b2bd4835a.jpg" width="500" height="500" alt="" /><br />
+<strong>JESUS - O Deus vis&iacute;vel</strong><br />
+Oq se poder saber de Deus est&aacute; em Cristo. Ele &eacute; a imagem do Deus invis&iacute;vel, o primog&ecirc;nito de toda a cria&ccedil;&atilde;o. Cristo torna vis&iacute;vel o Deus que &eacute; invis&iacute;vel. Pq nele habita corporalmente toda a plenitude da divindade. Durante toda hist&oacute;ria, Deus falou por fragmentos, s&iacute;mbolos e sombras e agora nos fala plenamente atrav&eacute;s Jesus. Quem v&ecirc; Jesus, v&ecirc; oq se poder ver do Pai. No tempo presente, Jesus &eacute; a plena revela&ccedil;&atilde;o de Deus acess&iacute;vel &agrave; humanidade. Mas ainda assim, mesmo essa revela&ccedil;&atilde;o nos &eacute; conhecida de forma parcial e limitada, por causa da nossa condi&ccedil;&atilde;o atual (limitados pela carne, pelo tempo e pelo pecado). A revela&ccedil;&atilde;o de Deus em Cristo &eacute; perfeita, mas nossa percep&ccedil;&atilde;o dela ainda &eacute; imperfeita. Pq agora vemos como por um espelho de bronze, o reflexo nos parece imperfeito e assim tamb&eacute;m &eacute; o nosso entendimento atual de Deus, como um enigma, h&aacute; mist&eacute;rios de Deus que ainda n&atilde;o compreendemos, mas um dia O veremos face a face; agora conhecemos em parte, mas haver&aacute; um momento na glorifica&ccedil;&atilde;o futura dos nossos corpo que O conheceremos como tamb&eacute;m somos conhecido. Face a face. Jesus transformar&aacute; o nosso corpo de humilha&ccedil;&atilde;o para ser semelhante ao corpo da sua glorifica&ccedil;&atilde;o. Por enquanto ainda n&atilde;o suportamos toda sua gl&oacute;ria. Por que ningu&eacute;m pode ver a gl&oacute;ria de Deus e continuar vivo. Por enquanto, Deus providenciou um instrumento que nos permitem conhec&ecirc;-lo dentro dessas limita&ccedil;&otilde;es: a F&eacute; na Palavra (q &eacute; CRISTO) pelo Esp&iacute;rito Santo.</p>

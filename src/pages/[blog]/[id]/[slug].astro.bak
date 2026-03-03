@@ -1,0 +1,307 @@
+---
+import { getCollection } from 'astro:content';
+
+import LayoutMascotes from '../../../layouts/LayoutMascotes.astro';
+import LayoutGospel from '../../../layouts/LayoutGospel.astro';
+import LayoutSaoLuis from '../../../layouts/LayoutSaoLuis.astro';
+import WhatsAppButton from '../../../components/WhatsAppButton.astro';
+import MascoteCard from '../../../components/MascoteCard.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+
+  const getCleanSlug = (m) => {
+    let rawSlug = m.data.slug || m.slug.split('/').pop();
+    const prefixoId = `${m.data.id}-`;
+    if (rawSlug.startsWith(prefixoId)) {
+      rawSlug = rawSlug.replace(prefixoId, '');
+    }
+    return rawSlug;
+  };
+
+  const postsByBlog = posts.reduce((acc, post) => {
+    const b = post.data.blog;
+    if (!acc[b]) acc[b] = [];
+    acc[b].push(post);
+    return acc;
+  }, {});
+
+  Object.keys(postsByBlog).forEach(b => {
+    postsByBlog[b].sort((a, b) => b.data.id - a.data.id);
+  });
+
+  return posts.flatMap((post) => {
+    const blogPosts = postsByBlog[post.data.blog];
+    const currentIndex = blogPosts.findIndex(p => p.data.id === post.data.id);
+
+    const nextPost = currentIndex > 0 ? blogPosts[currentIndex - 1] : null; 
+    const prevPost = currentIndex < blogPosts.length - 1 ? blogPosts[currentIndex + 1] : null;
+
+    const prevLink = prevPost ? `/${prevPost.data.blog}/${prevPost.data.id}/${getCleanSlug(prevPost)}` : null;
+    const nextLink = nextPost ? `/${nextPost.data.blog}/${nextPost.data.id}/${getCleanSlug(nextPost)}` : null;
+
+    const canonicalSlug = getCleanSlug(post);
+
+    const slugsParaGerar = new Set([
+      canonicalSlug,
+      post.slug,
+      `${post.data.id}-${canonicalSlug}`
+    ]);
+
+    const slugsValidos = Array.from(slugsParaGerar).filter(Boolean);
+
+    return slugsValidos.map((slugVariacao) => ({
+      params: { 
+        blog: post.data.blog, 
+        id: post.data.id.toString(), 
+        slug: slugVariacao 
+      },
+      props: { 
+        post, 
+        canonicalSlug,
+        prevLink,
+        nextLink
+      },
+    }));
+  });
+}
+
+const { blog, id, slug } = Astro.params;
+const { post, canonicalSlug, prevLink, nextLink } = Astro.props;
+const { Content } = await post.render();
+
+const siteUrl = Astro.site ? Astro.site.toString().replace(/\/$/, '') : 'https://kamaleao.com';
+const canonicalUrl = `${siteUrl}/${blog}/${id}/${canonicalSlug}`;
+
+const Layout = 
+  blog === 'mascotes' ? LayoutMascotes : 
+  blog === 'gospel' ? LayoutGospel : 
+  LayoutSaoLuis;
+
+// Busca os dados para alimentar a barra de busca inferior e os mascotes recentes
+const todosMascotes = await getCollection('blog', ({ data }) => data.blog === 'mascotes');
+const mascotesOrdenados = todosMascotes.sort((a, b) => b.data.id - a.data.id);
+
+const getCleanSlug = (m) => {
+  let rawSlug = m.data.slug || m.slug.split('/').pop();
+  const prefixoId = `${m.data.id}-`;
+  if (rawSlug.startsWith(prefixoId)) {
+    rawSlug = rawSlug.replace(prefixoId, '');
+  }
+  return rawSlug;
+};
+
+const searchData = mascotesOrdenados.map(m => ({
+  title: m.data.title,
+  url: `/mascotes/${m.data.id}/${getCleanSlug(m)}`,
+  thumb: m.data.thumb
+}));
+
+// Pega os últimos 12 para mostrar na grade antes do rodapé
+const recentes = mascotesOrdenados.slice(0, 64);
+---
+
+<Layout 
+  title={`${post.data.title} • ${blog.charAt(0).toUpperCase() + blog.slice(1)}`}
+  description={`(98) 98104-4545 Preços, valores, orçamento, prazo de entrega para produção ${post.data.title}`}
+  canonical={canonicalUrl}
+  image={post.data.thumb}
+>
+  
+  <div style="width:100%; max-width:800px; margin:auto; background-color: #FFFFFF;">
+    
+    <table width="100%" border="0" align="center" cellpadding="0" cellspacing="2" style="font-size:30px">
+      <tr>
+        <td align="left" style="width: 50px;">
+          {prevLink && <a href={prevLink} style="text-decoration: none;">👈</a>}
+        </td>
+        
+        <td align="center">
+          <a style="color:#000;text-decoration:none" href={`/${blog}`}>
+            <div style="text-align:center;">
+              <div style="margin:auto; padding:4px">
+                <img id="logotop" src="https://kamaleao.com/topokas2.svg" alt="Produção de Fantasias" width="190" height="40" border="0" />
+                <div style="font-size: 19px;font-weight:bold;font-variant-caps: all-small-caps; margin-top:-6px;font-stretch: expanded;white-space: nowrap;letter-spacing: 0.0600em;">
+                  {blog === 'mascotes' ? 'Criação de Mascotes' : blog.toUpperCase()}
+                </div>
+                <div style="font-size: 14px; margin-top:-2px;">Fantasias, Bonecos e Mascotes </div>
+                <div style="font-size: 10px; color: #666">Preço, orçamento, prazo de entrega para confecção de Fantasia personalizada</div>
+              </div>
+            </div>
+          </a>
+        </td>
+        
+        <td align="right" style="width: 50px;">
+          {nextLink && <a href={nextLink} style="text-decoration: none;">👉</a>}
+        </td>
+      </tr>
+    </table>  
+
+    <a href={`https://api.whatsapp.com/send?l=pt_BR&phone=5598981044545&text=Oi, gostaria de encomendar um mascote parecido com este ${canonicalUrl}`}>
+      <div style="box-shadow: 1px 1px 5px #000;background-color:#000;border-radius:50px;text-align:center;text-align:center; color:#FFF;border:2px solid #FFF; padding:5px;font-size:11pt; word-wrap:normal; margin:8px; text-decoration:none">
+        (98) 98104-4545 
+        <img src="https://www.svgrepo.com/show/110197/whatsapp.svg" alt="Whatsapp" width="16" height="16" border="0" /> Atendimento 24 Horas
+      </div> 
+    </a>
+
+    <div id="entrytitle" style="width:100%; margin:0px;padding:0px;background-color: #FFCC00;border:1px solid #E5BA09; display: flex; align-items: center;">
+      <img src="https://lh3.googleusercontent.com/-82Z_I22hF68/ZF1Ko94LRGI/AAAAAAAUSzM/HmmN6uEYm7A5WPCnMqBFISKq1xew7GY7QCNcBGAsYHQ/h220/kamaleao-encostado.png" style="height: 96px; float: left; margin-right: -24px; position: relative; z-index: 1;">
+      
+      <h1 style="flex-grow: 1; margin: 0; padding: 0;">
+        <a style="color:#000; font-size:30px; text-decoration: none;" href={canonicalUrl}>
+          <div style="width: 100%;text-align:left;z-index: 0; padding:10px;">
+            <p style="background-color:#FFF; padding:7px;border-radius:17px;margin:0px; color: #000; font-size: 24px;">{post.data.title}</p>
+            <div style="font-size: 10px; color: #B87E07; font-family:Arial;letter-spacing:normal;line-height: 11px;margin-top:6px;text-align:center;">{post.data.title}</div> 
+          </div>
+        </a>
+      </h1>
+
+      <a style="cursor: pointer;" onclick={`navigator.share({url: '${canonicalUrl}'})`}>
+        <div id="direct" style="margin-right: 10px;">
+          <svg aria-label="Compartilhar" color="rgb(0, 0, 0)" fill="rgb(0, 0, 0)" height="30" role="img" viewBox="0 0 24 24" width="30">
+            <title>Enviar Direct</title>
+            <line fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="2" x1="22" x2="9.218" y1="3" y2="10.083"></line>
+            <polygon fill="none" points="11.698 20.334 22 3.001 2 3.001 9.218 10.084 11.698 20.334" stroke="currentColor" stroke-linejoin="round" stroke-width="2"> </polygon>
+          </svg>
+        </div>
+      </a>
+    </div>
+
+    <div class="post-content" style="margin:0; padding:0; display: block; width: 100%;">
+      <Content />
+    </div>
+
+    {blog === 'mascotes' && (
+      <div style="text-align:center; padding:5px;font-size:16pt; margin-top: 20px;">
+        <a href={`https://api.whatsapp.com/send?l=pt_BR&phone=5598981044545&text=Oi, gostaria de encomendar um mascote parecido com este ${canonicalUrl}`} target="_blank" style="color: #333; text-decoration: none; font-weight: bold;"> 
+          Faça seu pedido pelo Whatsapp!<br>
+          <img src="https://www.svgrepo.com/show/110197/whatsapp.svg" alt="Whatsapp (98) 98104-4545" width="60" height="60" border="0" /><br>
+          (98) 98104-4545<br>
+          Atendimento 24 Horas
+          <div style="width:150px;height:91px;margin:auto; background-image:url(https://lh3.googleusercontent.com/-XJ0Q8lnNH70/VbJgnvew4DI/AAAAAAAIF8o/pxdlmqvl8SE/s150-Ic42/kamaleao_balao_so.gif)"></div>
+        </a>
+      </div>
+    )}
+  </div>
+
+  <hr />
+
+  <table border="0" align="center" cellpadding="5" cellspacing="5">
+    <tbody>
+      <tr>
+        <td>
+          <form id="search-form-post" class="mb-3" style="margin: 0;">
+            <div style="display: flex; gap: 5px; justify-content: center;">
+              <input name="search" type="text" id="search-input-post" style="padding: 5px; border: 1px solid #ccc; width: 250px; border-radius: 4px;">
+              <button type="submit" style="padding: 5px 15px; cursor: pointer; background-color: #007bff; color: white; border: none; border-radius: 4px;">Buscar🔎</button>
+            </div>
+          </form>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#e8f0fe">
+    <tbody>
+      <tr>
+        <td><div id="search-results-post"></div></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div id="grid-recentes" style="width:auto;margin:0px;padding:0px;text-align:center;font-size:11px;display: flex;flex-wrap: wrap; justify-content: space-around;">
+    {recentes.map(r => (
+      <MascoteCard 
+        title={r.data.title} 
+        url={`/mascotes/${r.data.id}/${getCleanSlug(r)}`} 
+        thumb={r.data.thumb} 
+      />
+    ))}
+  </div>
+
+  <br />
+
+  <div style="text-align:center; padding:5px;font-size:7pt;">
+    <a href="https://api.whatsapp.com/send?l=pt_BR&phone=5598981044545&text=Eu quero! Ore por mim. https://kamaleao.com/gospel/8528/eu-quero-ser-salvo-por-jesus-cristo" target="_blank" style="color: #333; text-decoration: none;">
+      AVISO IMPORTANTE: Jesus é o filho de Deus que veio para salvar quem está disposto a realmente mudar de vida e crer em sua ressurreição. Se você leu esta mensagem e sentiu no seu coração que também deve crer e buscar viver um estilo de vida praticante dos ensinamentos de Jesus Cristo, diga: <strong>Eu quero!</strong> Que eu vou orar por você.<br />
+      <img src="https://i.pinimg.com/474x/a5/2c/0f/a52c0f83283969c6e4348e96735b8e88.jpg" alt="Whatsapp (98) 98104-4545" width="100" height="100" border="0" /><br />
+      (98) 98104-4545<br />
+      Oração 24 Horas 
+    </a>
+  </div>
+
+  <div class="a3" style="margin:auto; text-align:center; padding:8px; font-size:14px; background-color:#FFCC00;height:146px;">
+    <img src="https://lh3.googleusercontent.com/-jq_jrjSxerU/ZGrm9oaL5aI/AAAAAAAUY2k/cedY3Opd_MkiHH7dr1hx5OwpTrQby5CkgCNcBGAsYHQ/h220/KAMALEAO-2023.png" style="height:96px;float:left;margin-right:-10px;">
+    <a href="https://kamaleao.com/saoluis/359/equipe-kamaleao" style="color:#0095F6; text-decoration:none;">Equipe </a> | <a href="https://kamaleao.com/mascotes" target="_parent" style="color:#0095F6; text-decoration:none;"> Produção de Fantasias</a>
+    | <a href="https://kamaleao.com/rss.php?w=mascotes" style="color:#0095F6; text-decoration:none;">RSS Feed</a> | 
+    <a href="https://kamaleao.com/saoluis/16/fale-com-o-kamaleao" style="color:#0095F6; text-decoration:none;">Fale Conosco</a> <br>  <br> 
+    
+    <a target="_blank" href="https://www.facebook.com/SiteKamaleao"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook" width="30" ></a> 
+    <a target="_blank" href="https://twitter.com/Kamaleao"><img src="https://static.cdnlogo.com/logos/t/96/twitter-icon.svg" alt="Twitter" width="30"  ></a> 
+    <a target="_blank" href="https://instagram.com/fantasias.bonecos.mascotes"><img src="https://www.svgrepo.com/show/452229/instagram-1.svg" alt="Instagram" width="30"></a> 
+    <a target="_blank" href="https://api.whatsapp.com/send?l=pt_BR&phone=5598981044545&text=Oi,%20gostaria%20de%20encomendar%20um%20mascote"><img src="https://www.svgrepo.com/show/110197/whatsapp.svg" alt="Whatsapp" width="30" ></a> 
+    <a target="_blank" href="https://t.me/petruscintra"><img src="https://www.svgrepo.com/show/354443/telegram.svg" alt="Telegram" width="30"  ></a>
+  </div>
+
+  {blog === 'mascotes' && (
+    <WhatsAppButton urlPost={canonicalUrl} />
+  )}
+
+  <script is:inline define:vars={{ searchData }}>
+    // Script da barra de busca do rodapé
+    const searchForm = document.getElementById("search-form-post");
+    const searchInput = document.getElementById("search-input-post");
+    const resultsDiv = document.getElementById("search-results-post");
+    const gridRecentes = document.getElementById("grid-recentes");
+
+    function removeAccents(str) {
+      return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    }
+
+    searchForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const term = searchInput.value;
+      const searchValue = removeAccents(term.toLowerCase());
+      
+      const filtrados = searchData.filter(m => 
+        removeAccents(m.title.toLowerCase()).includes(searchValue)
+      );
+
+      resultsDiv.innerHTML = ''; 
+      if(gridRecentes) gridRecentes.style.display = 'none'; // Esconde os recentes originais
+
+      if (filtrados.length === 0) {
+        resultsDiv.innerHTML = '<div style="text-align:center; padding: 20px;">Nenhum resultado encontrado.</div>';
+      } else {
+        let cards = '<div style="width:auto;margin:0px;padding:0px;text-align:center;font-size:11px;display: flex;flex-wrap: wrap; justify-content: space-around;">';
+        filtrados.forEach(item => {
+          cards += `
+            <a href="${item.url}" class="mascote-card" style="text-decoration: none; color: #333; display: block; float: left; margin: 4px;">
+              <div class="card-inner" style="width: 184px; height: 226px; border: 2px solid black; border-radius: 10px; background-color: #FFF; box-shadow: 0px 0px 10px rgba(0,0,0,0.1); text-align: center; overflow: hidden; padding: 4px; box-sizing: border-box;">
+                <img src="${item.thumb}" alt="${item.title}" width="184" height="184" loading="lazy" style="width: 100%; height: 184px; object-fit: cover; border-top-left-radius: 6px; border-top-right-radius: 6px; display: block;" />
+                <span class="title" style="display: block; font-size: 12px; line-height: 1.1; margin-top: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${item.title}</span>
+                <div class="stars" style="font-size: 12px; margin-top: 2px;">⭐⭐⭐⭐⭐</div>
+              </div>
+            </a>
+          `;
+        });
+        cards += '</div>';
+        resultsDiv.innerHTML = cards;
+      }
+    });
+
+    searchInput.addEventListener("input", (e) => {
+      if(e.target.value === '') {
+         resultsDiv.innerHTML = '';
+         if(gridRecentes) gridRecentes.style.display = 'flex';
+      }
+    });
+  </script>
+</Layout>
+
+<style>
+  /* Remove margens e paddings nativos do Markdown para grudar a imagem no título */
+  .post-content :global(p:first-child) { margin-top: 0; padding-top: 0; }
+  .post-content :global(img) { max-width: 100%; height: auto; display: block; margin: 0; padding: 0; }
+  .post-content { font-size: 16.4px; line-height: 1.6; color: #333; overflow: hidden; }
+</style>

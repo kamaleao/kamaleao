@@ -1,0 +1,9 @@
+---
+title: "Belo, Revelação, Rodriguinho e Chrigor no Samba São Luís"
+id: 784
+blog: "saoluis"
+date: 2009-03-11T15:36:00.000Z
+thumb: ""
+---
+
+<p style="text-align: center"><img alt="" src="https://kamaleao.com/userfiles/samba_saoluis.jpg" /><br /> <strong><span style="font-size: medium">Samba S&atilde;o Lu&iacute;s</span></strong><br /> O Maior Evento de Samaa da Hist&oacute;ria do Maranh&atilde;o<br /> Dia 27 de Mar&ccedil;o - Sexta<br /> Onde: Centro Hist&oacute;rico - Praia Grande<br /> <br /> <strong>Atra&ccedil;&otilde;es:</strong><br /> Cantor Belo (Ex-Soweto)<br /> Grupo Revela&ccedil;&atilde;o<br /> Rodriguinho (Ex-Travessos)<br /> Chrigor (Ex- Exaltasamba)<br /> <br /> <strong>Pre&ccedil;o dos Ingressos:</strong><br /> aguarde<br /> <br /> <strong>Realiza&ccedil;&atilde;o:<br /> </strong>Alegria Produ&ccedil;&otilde;es<br /> <br /> Cobertura de Fotos do Exaltasamba:<br /> <table style="background-color: #a2d121" cellspacing="2" cellpadding="2" width="300" align="center" bgcolor="#a2d121" border="0" onmouseout="this.style.backgroundColor = '#A2D121'" onmouseover="this.style.backgroundColor = '#669900';">     <tbody>         <tr>             <td width="80"><a href="https://kamaleao.com/galeria_kamaleao/iframecentral.php?idgal=260"><img alt="Exaltasamba" border="0" src="https://kamaleao.com/galeria_kamaleao/galerias/exaltasamba_03120853/DSC03255_thumb.JPG" /></a></td>             <td><a href="https://kamaleao.com/galeria_kamaleao/iframecentral.php?idgal=260"><img height="14" alt="" width="20" border="0" src="https://kamaleao.com/ico_cam.gif" /><font face="Verdana" color="#000000"> <b>Exaltasamba</b><br />             </font></a>Batuque Brasil<br />             <span style="font-size: 9px; float: right">Fotos: Josias Pires</span>S&aacute;b, 29/Nov</td>         </tr>     </tbody> </table> <br /> Onde Tem <strong>Samba e Pagode</strong>, Tem Kamaleao!</p>

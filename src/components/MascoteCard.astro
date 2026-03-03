@@ -1,0 +1,58 @@
+---
+// src/components/MascoteCard.astro
+const { url, title, thumb } = Astro.props;
+---
+<a href={url} class="mascote-card">
+    <div class="card-inner">
+        <img src={thumb} alt={title} width="184" height="184" loading="lazy" />
+        <span class="title">{title}</span>
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+    </div>
+</a>
+
+<style>
+    .mascote-card {
+        text-decoration: none;
+        color: #333;
+        display: block;
+        float: left; /* Mantendo o comportamento antigo do layout */
+        margin: 4px;
+    }
+    .card-inner {
+        width: 184px;
+        height: 226px;
+        border: 2px solid black;
+        border-radius: 10px;
+        background-color: #FFF;
+        box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+        text-align: center;
+        overflow: hidden;
+        transition: border-color 0.2s ease-in-out;
+        padding: 4px;
+        box-sizing: border-box;
+    }
+    .card-inner:hover {
+        border-color: #FFCC00;
+    }
+    img {
+        width: 100%; /* 172px efetivos por causa do padding */
+        height: 184px;
+        object-fit: cover;
+        border-top-left-radius: 6px;
+        border-top-right-radius: 6px;
+        display: block;
+    }
+    .title {
+        display: block;
+        font-size: 14px;
+        line-height: 1.1;
+        margin-top: 4px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .stars {
+        font-size: 12px;
+        margin-top: 2px;
+    }
+</style>

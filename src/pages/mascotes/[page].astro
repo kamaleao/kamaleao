@@ -1,0 +1,162 @@
+---
+import { getCollection } from 'astro:content';
+import LayoutMascotes from '../../layouts/LayoutMascotes.astro';
+import MascoteCard from '../../components/MascoteCard.astro';
+
+export async function getStaticPaths({ paginate }) {
+  // 1. Puxamos todos os mascotes do "CMS"
+  const todosMascotes = await getCollection('blog', ({ data }) => {
+    return data.blog === 'mascotes';
+  });
+
+  // 2. Ordenamos do mais novo para o mais antigo pelo ID
+  const mascotesOrdenados = todosMascotes.sort((a, b) => b.data.id - a.data.id);
+
+  // 3. O Astro divide os posts. Defina aqui a quantidade de mascotes por página!
+  // (Coloquei 24 como exemplo, mas você pode mudar para a regra do legado)
+  return paginate(mascotesOrdenados, { pageSize: 64 });
+}
+
+// A propriedade 'page' é injetada automaticamente pela função paginate() acima
+const { page } = Astro.props;
+
+// Nossa função guerreira de limpar o slug que tira a pasta e o ID numérico
+const getCleanSlug = (m) => {
+  let rawSlug = m.data.slug || m.slug.split('/').pop();
+  const prefixoId = `${m.data.id}-`;
+  if (rawSlug.startsWith(prefixoId)) {
+    rawSlug = rawSlug.replace(prefixoId, '');
+  }
+  return rawSlug;
+};
+---
+
+<LayoutMascotes 
+  title={`Criação de Mascotes • Página ${page.currentPage}`} 
+  canonical={`https://kamaleao.com/mascotes/${page.currentPage === 1 ? '' : page.currentPage}`}
+>
+  <div id="content">
+    
+    <div class="header-topo">
+      <a href="/mascotes" class="logo-link">
+        <img id="logotop" src="https://kamaleao.com/topokas2.svg" alt="Produção de Fantasias" width="190" height="40" />
+        <div class="titulo-principal">Criação de Mascotes</div>
+        <div class="subtitulo">Fantasias, Bonecos e Mascotes</div>
+        <div class="descricao">Página {page.currentPage}</div>
+      </a>
+    </div>
+
+    <a href="https://api.whatsapp.com/send?l=pt_BR&phone=5598981044545&text=Oi,%20gostaria%20de%20encomendar%20um%20MASCOTE">
+      <img src="https://lh3.googleusercontent.com/-KPTIIuRxN-w/ZHK5ZqE7BjI/AAAAAAAABJE/xmhLQcQrUcEV6olgiYNdppXdEQrfIvh_ACNcBGAsYHQ/h1600/TODOS-MASCOTES-REDES.jpg" alt="Produção de Fantasias" style="width:100%; display:block;" />
+    </a>
+
+    <div class="grid-container">
+      {page.data.map(mascote => (
+        <MascoteCard 
+          title={mascote.data.title} 
+          url={`/mascotes/${mascote.data.id}/${getCleanSlug(mascote)}`} 
+          thumb={mascote.data.thumb} 
+        />
+      ))}
+    </div>
+
+    <div class="paginacao">
+      {page.url.prev ? (
+        <a href={page.url.prev} class="btn-pag">👈 Anterior</a>
+      ) : (
+        <span class="btn-pag disabled">👈 Anterior</span>
+      )}
+      
+      <span class="info-pag">Página {page.currentPage} de {page.lastPage}</span>
+      
+      {page.url.next ? (
+        <a href={page.url.next} class="btn-pag">Próxima 👉</a>
+      ) : (
+        <span class="btn-pag disabled">Próxima 👉</span>
+      )}
+    </div>
+
+  </div>
+</LayoutMascotes>
+
+<style>
+  /* CSS Scoped: Afeta apenas esta página */
+  #content {
+    background-color: #FFFFFF;
+    margin: auto;
+  }
+  .header-topo {
+    text-align: center;
+    padding: 10px 0;
+  }
+  .logo-link {
+    color: #000;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .titulo-principal {
+    font-size: 19px;
+    font-weight: bold;
+    font-variant: small-caps;
+    margin-top: -6px;
+    letter-spacing: 0.06em;
+  }
+  .subtitulo {
+    font-size: 14px;
+    margin-top: -2px;
+  }
+  .descricao {
+    font-size: 10px;
+    color: #666;
+  }
+
+  .grid-container {
+    background-color: #FEEDA7;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 10px 0;
+  }
+
+  /* Estilos da Paginação */
+  .paginacao {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 10px;
+    background-color: #FFF;
+    border-top: 1px solid #E5BA09;
+  }
+  .btn-pag {
+    background-color: #FFCC00;
+    color: #000;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    border: 1px solid #E5BA09;
+    transition: background-color 0.2s;
+  }
+  .btn-pag:hover {
+    background-color: #e6b800;
+    text-decoration: none;
+  }
+  .btn-pag.disabled {
+    background-color: #eee;
+    color: #999;
+    border: 1px solid #ccc;
+    cursor: not-allowed;
+  }
+  .info-pag {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+  }
+
+  @media screen and (max-width: 480px) {
+    .paginacao {
+      flex-direction: column;
+      gap: 15px;
+    }
+  }
+</style>

@@ -1,0 +1,40 @@
+---
+/* src/pages/admin.astro */
+---
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Painel Kamaleão</title>
+</head>
+<body>
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <script is:inline>
+    window.CMS.init({
+      config: {
+        backend: {
+          name: 'git-gateway',
+          branch: 'main', // Confirme se sua branch é main ou master
+        },
+        media_folder: 'public/images',
+        public_folder: '/images',
+        collections: [
+          {
+            name: 'saoluis',
+            label: 'Blog: São Luís',
+            folder: 'src/content/blog/saoluis',
+            create: true,
+            slug: '{{slug}}',
+            fields: [
+              { label: 'Titulo', name: 'title', widget: 'string' },
+              { label: 'ID', name: 'id', widget: 'number' },
+              { label: 'Conteudo', name: 'body', widget: 'markdown' }
+            ]
+          }
+        ]
+      }
+    });
+  </script>
+</body>
+</html>

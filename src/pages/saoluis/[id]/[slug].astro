@@ -1,0 +1,159 @@
+---
+import { getCollection } from 'astro:content';
+import LayoutSaoLuis from '../../../layouts/LayoutSaoLuis.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => data.blog === 'saoluis');
+  
+  // Ordenação decrescente por ID para navegação correta
+  posts.sort((a, b) => b.data.id - a.data.id);
+
+  const getCleanSlug = (m) => {
+    // Pega o slug final sem o caminho da pasta
+    let rawSlug = m.data.slug || m.slug.split('/').pop();
+    const prefixoId = `${m.data.id}-`;
+    // Remove o ID do início do slug se ele existir (evita o "ID-ID-slug")
+    if (rawSlug.startsWith(prefixoId)) {
+      rawSlug = rawSlug.replace(prefixoId, '');
+    }
+    return rawSlug;
+  };
+
+  // Trocamos flatMap por map para gerar apenas UMA rota por ID
+  return posts.map((post, index) => {
+    const postId = post.data.id.toString();
+    const canonicalSlug = getCleanSlug(post);
+    
+    // Lógica de navegação (Anterior e Próximo)
+    const nextPost = index > 0 ? posts[index - 1] : null; 
+    const prevPost = index < posts.length - 1 ? posts[index + 1] : null;
+
+    const prevLink = prevPost ? `/saoluis/${prevPost.data.id}/${getCleanSlug(prevPost)}` : null;
+    const nextLink = nextPost ? `/saoluis/${nextPost.data.id}/${getCleanSlug(nextPost)}` : null;
+
+    return {
+      params: { 
+        id: postId, 
+        slug: canonicalSlug // <--- Agora gera apenas /saoluis/ID/slug/
+      },
+      props: { post, canonicalSlug, prevLink, nextLink },
+    };
+  });
+}
+
+const { id, slug } = Astro.params;
+const { post, canonicalSlug, prevLink, nextLink } = Astro.props;
+const { Content } = await post.render();
+
+// Garante que o domínio esteja correto no canonical
+const siteUrl = Astro.site ? Astro.site.toString().replace(/\/$/, '') : 'https://kamaleao.com';
+const canonicalUrl = `${siteUrl}/saoluis/${id}/${canonicalSlug}`;
+---
+
+<LayoutSaoLuis 
+  title={`${post.data.title} - São Luís do Maranhão`}
+  description={post.data.title}
+  canonical={canonicalUrl}
+  image={post.data.thumb}
+>
+  <table border="0" align="center" cellpadding="10" cellspacing="0" id="postagem" style="width: 100%; max-width: 1000px; margin: auto; background-color: #FFF; box-shadow: 0px 0px 10px rgba(0,0,0,0.05);">
+    <tr>
+      <td align="center">
+        
+        <div style="padding-bottom:10px; text-align:left;">
+          <h1 class="content-head__title" itemprop="headline" style="box-sizing: inherit; border: 0px; font-weight: 700; font-size: 2.5rem; line-height: 1.2; font-family: 'Open Sans', helvetica, arial, sans-serif; letter-spacing: -0.05rem; margin: 0; color: #111;">
+            <a style="color: rgb(17, 17, 17); text-decoration: none !important;" href={canonicalUrl}>
+              {post.data.title}
+            </a>
+          </h1>
+
+          <div style="margin: 15px 0; display: flex; gap: 10px; align-items: center;">
+            <a href={`whatsapp://send?text=${post.data.title}:%20${canonicalUrl}`} rel="nofollow" style="text-decoration:none;">
+              <div style="width:90px; height:20px; background-color:#339900; color:#FFF; border-radius: 4px; font-size:12px; font-weight:600; padding: 2px 5px 2px 25px; background-image:url(https://www.svgrepo.com/show/303158/whatsapp-logo.svg); background-repeat:no-repeat; background-size: 14px; background-position: 6px center;">
+                Whatsapp
+              </div>
+            </a>
+            <a href="https://twitter.com/share" class="twitter-share-button" data-url={canonicalUrl} style="font-size:12px; color:#1DA1F2;">Tweetar</a>
+          </div>
+
+          <div style="border-top: 1px solid #EEE; padding-top: 10px; font-size: 12px; color: #999; display: flex; align-items: center; gap: 5px;">
+            Atualizado em {post.data.date || 'Recente'}
+            <img src="https://kamaleao.com/images/planet.webp" width="10" height="10" alt="icon" />
+            <a href={`https://www.google.com/calendar/event?action=TEMPLATE&text=${post.data.title}&details=${canonicalUrl}`} target="_blank">
+              <img src="https://kamaleao.com/images/cal.webp" width="12" height="12" alt="calendar" />
+            </a>
+          </div>
+        </div>
+
+        <div class="artigo-corpo" style="text-align: left; font-size: 18px; line-height: 1.7; color: #333; margin-top: 20px;">
+          <Content />
+        </div>
+
+      </td>
+    </tr>
+  </table>
+
+  <table border="0" align="center" cellpadding="0" cellspacing="8" style="margin: 20px auto; font-size: 14px;">
+    <tr>
+      <td><a href="/saoluis" style="color: #3B9C00; font-weight: bold;">« Todas as Notícias</a></td>
+      <td style="padding: 0 20px; color: #CCC;">|</td>
+      <td align="right" style="display: flex; gap: 15px;">
+        {prevLink && <a href={prevLink} style="color: #3B9C00;">Anterior</a>}
+        {nextLink && <a href={nextLink} style="color: #3B9C00;">Próxima</a>}
+      </td>
+    </tr>
+  </table>
+
+  <script is:inline define:vars={{ prevLink, nextLink }}>
+    let xDown = null;                                                        
+    let yDown = null;
+
+    document.addEventListener('touchstart', (e) => {
+      if (e.touches.length === 1) {
+        xDown = e.touches[0].clientX;                                      
+        yDown = e.touches[0].clientY;
+      }
+    }, false);
+
+    document.addEventListener('touchmove', (e) => {
+      if (!xDown || !yDown) return;
+
+      let xUp = e.touches[0].clientX;                                    
+      let yUp = e.touches[0].clientY;
+      let xDiff = xDown - xUp;
+      let yDiff = yDown - yUp;
+
+      // Detecta se o movimento foi mais horizontal que vertical
+      if (Math.abs(xDiff) > Math.abs(yDiff)) {
+        if (xDiff > 0) {
+          /* deslize para a esquerda -> próxima */
+          if (nextLink) window.location.href = nextLink;
+        } else {
+          /* deslize para a direita -> anterior */
+          if (prevLink) window.location.href = prevLink;
+        }
+        xDown = null;
+        yDown = null;                                             
+      }
+    }, false);
+  </script>
+</LayoutSaoLuis>
+
+<style>
+  /* Ajustes finos para o corpo do texto renderizado via Markdown */
+  .artigo-corpo :global(p) { margin-bottom: 1.5rem; }
+  .artigo-corpo :global(img) { 
+    max-width: 100%; 
+    height: auto; 
+    border-radius: 8px; 
+    display: block; 
+    margin: 2rem auto; 
+  }
+  .artigo-corpo :global(iframe) { 
+    max-width: 100%; 
+    border-radius: 8px; 
+    margin: 2rem 0;
+    aspect-ratio: 16 / 9;
+    width: 100%;
+  }
+</style>

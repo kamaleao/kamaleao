@@ -1,0 +1,32 @@
+---
+title: "Show Ney Matogrosso no Centro de Convenções"
+id: 825
+blog: "saoluis"
+date: 2009-04-01T12:27:00.000Z
+thumb: ""
+---
+
+<p style="text-align: center"><img alt="" src="https://kamaleao.com/userfiles/ney_matogrosso_slz.jpg" /><br />
+<strong><span style="font-size: medium">Show Ney Matogrosso em S&atilde;o Lu&iacute;s</span></strong><br />
+Dia 02 de Maio 2009 - S&aacute;bado &agrave;s 21h<br />
+Onde: Centro de Conven&ccedil;&otilde;es (Multicenter Sebrae)<br />
+<br />
+<strong>Pre&ccedil;o dos Ingressos:</strong><br />
+R$ 120<br />
+<br />
+<strong>Informa&ccedil;&otilde;es:</strong><br />
+(98) 8127-3797<br />
+(98) 8402-7463<br />
+&nbsp;</p>
+<p style="text-align: center"><iframe width="420" height="315" src="https://www.youtube.com/embed/rc9A9GJnHs8" frameborder="0" allowfullscreen=""></iframe><br />
+<strong><br />
+Sobre o Evento:</strong><br />
+Consagrado como um dos grandes int&eacute;rpretes da M&uacute;sica Popular Brasileira (MPB), o cantor Ney Matogrosso &eacute; a pr&oacute;xima atra&ccedil;&atilde;o que a Central de Eventos e o Marafolia trazem a S&atilde;o Lu&iacute;s. O show acontece no pr&oacute;ximo dia 2 de maio no Centro de Conven&ccedil;&otilde;es Governador Pedro Neiva de Santana, no Cohafuma. &nbsp;Os ingressos s&atilde;o limitados e j&aacute; est&atilde;o &agrave; venda na Central da Folia no Jaracaty Shopping, no valor de R$ 120,00 &agrave; vista ou nos cart&otilde;es Mastercard, Hiper e Visa em 2 vezes sem juros. Mais informa&ccedil;&otilde;es pelo telefone (98) 3221-0120. &nbsp;A turn&ecirc; &quot;Inclassific&aacute;veis&quot; j&aacute; foi assistida por mais de 500 mil pessoas de v&aacute;rias cidades brasileiras e do exterior. O nome do show foi escolhido para homenagear uma m&uacute;sica de autoria de Arnaldo Antunes. O novo espet&aacute;culo tem uma roupagem que vai desde a vanguarda, pop, rock, samba tradicional e re&uacute;ne composi&ccedil;&otilde;es pr&oacute;prias, de artistas renomados e da nova safra de compositores, entre eles Cazuza, Frejat, Lob&atilde;o, Caetano Veloso, Gilberto Gil, Arnaldo Antunes, Marcelo Camelo, de Los Hermanos, Dan Nakagawa e Jorge Drexler, uruguaio que ficou conhecido no Brasil depois de ganhar o Oscar de melhor can&ccedil;&atilde;o com &quot;Al Otro Lado del R&iacute;o&quot;, entre outros. &nbsp;A dire&ccedil;&atilde;o musical &eacute; de Em&iacute;lio Carrera, ex-integrante do grupo Secos e Molhados. Matogrosso abre o espet&aacute;culo com &quot;O Tempo N&atilde;o P&aacute;ra&quot; e termina com &quot;Pro Dia Nascer Feliz&quot;, sucessos de Cazuza. No repert&oacute;rio, est&atilde;o inclu&iacute;das tamb&eacute;m can&ccedil;&otilde;es como &quot;Por que a Gente &Eacute; Assim?&quot;, &quot;Seda&quot; (letra in&eacute;dita do compositor que ganhou arranjos de Lob&atilde;o), Divino e Maravilhoso (Caetano Veloso), Um Pouco de Calor (Dan Nakanawa), Ou&ccedil;a-me (Itamar Assun&ccedil;&atilde;o). &nbsp;No palco, ele estar&aacute; acompanhado dos m&uacute;sicos Carlinhos Noronha (baixo), J&uacute;nior Meirelles (guitarra e viol&atilde;o), S&eacute;rgio Machado (bateria), Em&iacute;lio Carrera (piano e teclado), DJ Tubar&atilde;o (percuss&atilde;o e pick up) e Felipe Roseno (percuss&atilde;o). o espet&aacute;culo tem uma.<br />
+<br />
+<strong>A turn&ecirc;:</strong><br />
+&nbsp;A tour &ldquo;Inclassific&aacute;veis&rdquo; representa um novo momento nos mais de 30 anos de uma carreira consolidada e admirada por f&atilde;s em todo o Brasil. Ney Matogrosso incorpora o que canta e continua sendo um dos grandes g&ecirc;nios da MPB, sempre audacioso em suas cria&ccedil;&otilde;es.&nbsp;O show mais uma vez retrata a personalidade do cantor com muita diversidade e beleza. O figurino fica por conta de Ocimar Versolato, que j&aacute; trabalha com Ney h&aacute; quase 10 anos, e o cen&aacute;rio &eacute; de Milton Cunha.&nbsp;O cantor aparece em cena com um macac&atilde;o dourado feito com 40 mil micropaet&ecirc;s presos &agrave; m&atilde;o. O figurino, o cen&aacute;rio e a ilumina&ccedil;&atilde;o s&atilde;o dignos do artista que ganhou fama por suas performances extravagantes no palco. Os temas variaram do indiano ao ind&iacute;gena, com as cores fortes como o laranja, o amarelo e o vermelho. Da mesma forma, o figurino dourado, &eacute; trocado em cena v&aacute;rias vezes durante a apresenta&ccedil;&atilde;o, remetendo o p&uacute;blico a conhecer mais da fortuna e riqueza da tradi&ccedil;&atilde;o e cultura tanto ind&iacute;gena como a indiana. No cen&aacute;rio, cortinas ao fundo do palco que se modificam ao longo do show, oferecendo dinamismo e identidade &agrave;s m&uacute;sicas.<br />
+<br />
+<strong>Trajet&oacute;ria</strong>&nbsp;<br />
+Um dos mais vers&aacute;teis e criativos cantores do Brasil, Ney de Souza Pereira nasceu em 1&ordm; de agosto de 1941, em Bela Vista, no Mato Grosso do Sul, fronteira com o Paraguai. Desde cedo, demonstrava voca&ccedil;&atilde;o para o canto, pintura e interpreta&ccedil;&atilde;o. Ainda pequeno, escolheu o caminho do questionamento, das retic&ecirc;ncias do mundo adulto, inconformado com seus preconceitos e incoer&ecirc;ncias.&nbsp;At&eacute; completar 17 anos, sua fam&iacute;lia morou, al&eacute;m de Bela Vista, no Recife, em Salvador, no Rio de Janeiro e em Campo Grande. Quando deixou a casa para entrar na Aeron&aacute;utica, ele ainda n&atilde;o tinha id&eacute;ia do que faria de sua vida. Gostava de teatro e cantava esporadicamente, mas acabou indo trabalhar no laborat&oacute;rio de Anatomia Patol&oacute;gica do Hospital de Base de Bras&iacute;lia, a convite do primo. Tempos depois, passou a fazer recrea&ccedil;&atilde;o com crian&ccedil;as. Nessa &eacute;poca, foi convidado a participar de um festival universit&aacute;rio e chegou a formar um quarteto vocal.&nbsp;Depois do festival, fez de tudo um pouco, at&eacute; atuou em um programa de televis&atilde;o. Atr&aacute;s deste sonho, desembarcou no Rio de Janeiro e em 1970 foi convidado para ser vocalista do grupo Secos e Molhados, que estourou pelo Brasil de ponta a ponta e tamb&eacute;m em v&aacute;rios pa&iacute;ses. Em agosto de 1974, Ney deixou o grupo, e em mar&ccedil;o de 75 j&aacute; estava estreando seu show no Rio de Janeiro, no Teatro do Hotel Nacional. A partir da&iacute; montou uma banda fant&aacute;stica e deu in&iacute;cio a carreira de sucesso com o show &quot;O Homem de Neanderthal&quot;.Em sua trajet&oacute;ria musical, o cantor j&aacute; gravou 32 CDs e tem produzido oito DVDs.<br />
+<br />
+Onde Tem <strong>Ney</strong>, Tem Kamaleao!</p>

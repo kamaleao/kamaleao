@@ -1,0 +1,86 @@
+---
+import { getCollection } from 'astro:content';
+import LayoutSaoLuis from '../../layouts/LayoutSaoLuis.astro';
+
+const todosPosts = await getCollection('blog', ({ data }) => {
+  return data.blog === 'saoluis'; 
+});
+
+const postsOrdenados = todosPosts.sort((a, b) => b.data.id - a.data.id);
+const postsPagina1 = postsOrdenados.slice(0, 24);
+
+const getCleanSlug = (m) => {
+  let rawSlug = m.data.slug || m.slug.split('/').pop();
+  const prefixoId = `${m.data.id}-`;
+  if (rawSlug.startsWith(prefixoId)) {
+    rawSlug = rawSlug.replace(prefixoId, '');
+  }
+  return rawSlug;
+};
+---
+
+<LayoutSaoLuis title="Kamaleao - São Luís do Maranhão" canonical="https://kamaleao.com/saoluis">
+  
+  <div style="margin:auto;text-align:center;display:table">
+    {postsPagina1.map(post => (
+      <div 
+        onmouseover="this.style.backgroundColor = '#FFF9D7';" 
+        onmouseout="this.style.backgroundColor = '#fff'" 
+        class="thumbs2" 
+        style="float:left;border: 1px solid #fff;text-align:center;background-color:#FFFFFF; padding:4px; margin:4px; width:186px;height:200px; max-height:200px; text-overflow: ellipsis; overflow:hidden;"
+      > 
+        <a style="font-family: opensans, opensans-bastian, Arial, sans-serif; font-size: 20px; font-weight: 700; letter-spacing: -1.13px; color:#328400" href={`/saoluis/${post.data.id}/${getCleanSlug(post)}`}>
+          <img src={post.data.thumb} alt={post.data.title} width="150" height="150" border="0" /><br/>
+          {post.data.title}
+        </a> 
+      </div>
+    ))}
+  </div>
+
+  <div style="clear: both;"></div>
+
+  <table border="0" align="center" cellpadding="0" cellspacing="8" style="margin-top: 20px;">
+    <tr>
+      <td><a href="/saoluis">Todos as Notícias </a></td>
+      <td align="right">
+        {postsOrdenados.length > 24 && (
+          <a href="/saoluis/2">Próxima</a>
+        )}
+      </td>
+    </tr>
+  </table>
+
+  <script is:inline>
+    var initialX = null;
+    var initialY = null;
+    document.addEventListener("touchstart", function(e) {
+      if (e.touches.length === 1) {
+        initialX = e.touches[0].clientX;
+        initialY = e.touches[0].clientY;
+      } else {
+        initialX = null;
+        initialY = null;
+      }
+    });
+
+    document.addEventListener("touchmove", function(e) {
+      if (initialX === null || initialY === null) {
+        return;
+      }
+      var currentX = e.touches[0].clientX;
+      var currentY = e.touches[0].clientY;
+      var diffX = initialX - currentX;
+      var diffY = initialY - currentY;
+
+      if (Math.abs(diffX) > Math.abs(diffY)) {
+        if (diffX > 0) {
+          // Deslize para a esquerda (Próxima) - Se houver página 2
+          window.location.href = "/saoluis/2";
+        }
+        initialX = null;
+        initialY = null;
+      }
+    });
+  </script>
+
+</LayoutSaoLuis>
