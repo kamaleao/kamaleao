@@ -1,40 +1,40 @@
 ---
-/* src/pages/admin.astro */
+// Portal Kamaleao - Hub Principal
 ---
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Painel Kamaleão</title>
+    <meta charset="UTF-8">
+    <title>Kamaleao.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body{background-color:#9cc75c;margin:0;font-family:Segoe UI,sans-serif}
+        .header{background-color:#82af3d;color:#fff;padding:10px;border-bottom:1px solid #83b000}
+        .container{margin:auto;text-align:center;max-width:1000px}
+        .search-box{font-size:24px;width:372px;background-color:#e8f1b1;padding:20px;border:0;border-radius:5px;box-shadow:0 0 10px #0000001a;margin:15px auto}
+        .post{background-color:#fff;border:1px solid #ccc;border-radius:5px;padding:10px;margin:8px;width:350px;display:inline-flex;align-items:center;text-decoration:none;color:#000;font-weight:700;transition:.2s}
+        .post:hover{background-color:#fff9d7}
+        .feed{display:flex;flex-wrap:wrap;justify-content:center;margin-top:20px}
+        .thumb{background:#fff;border:1px solid #ccc;width:110px;height:150px;margin:4px;font-size:11px;text-decoration:none;color:#000;text-align:center}
+        .thumb img{width:106px;height:100px;object-fit:cover;display:block;margin-bottom:4px}
+    </style>
 </head>
 <body>
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-  <script is:inline>
-    window.CMS.init({
-      config: {
-        backend: {
-          name: 'git-gateway',
-          branch: 'main', // Confirme se sua branch é main ou master
-        },
-        media_folder: 'public/images',
-        public_folder: '/images',
-        collections: [
-          {
-            name: 'saoluis',
-            label: 'Blog: São Luís',
-            folder: 'src/content/blog/saoluis',
-            create: true,
-            slug: '{{slug}}',
-            fields: [
-              { label: 'Titulo', name: 'title', widget: 'string' },
-              { label: 'ID', name: 'id', widget: 'number' },
-              { label: 'Conteudo', name: 'body', widget: 'markdown' }
-            ]
-          }
-        ]
-      }
-    });
-  </script>
+    <div class="header">☰</div>
+    <div class="container"> 
+        <a href="/"><img src="https://lh3.googleusercontent.com/-2fho1DQwMog/Zlh9oNONglI/AAAAAAAW2bg/x5mIWq6EZXwiC0ksmVBpYDmCtzhR7eO7gCNcBGAsYHQ/s350/logo_kamaleao_2024_cruz.png" width="350"></a>  
+        
+        <div style="margin: 20px auto;"> 
+            <a href="/gospel" class="post"><span style="font-size:48px; margin-right:15px;">✝️</span> Kamaleao Gospel</a> 
+            <a href="/mascotes" class="post"><span style="font-size:48px; margin-right:15px;"> 🐻</span> Produção de Mascotes</a> 
+            <a href="/saoluis" class="post"><span style="font-size:48px; margin-right:15px;">🏝️</span> São Luís-MA</a> 
+        </div>  
+        <div class="feed"> 
+            <a href="/gospel/8553/jesus-o-deus-visivel" class="thumb"> 
+              <img src="https://i.pinimg.com/736x/5d/14/e0/5d14e09df9c3febee5621b8b2bd4835a.jpg" alt=""> 
+              JESUS - O Deus visível 
+            </a>
+        </div>
+    </div><br>
 </body>
 </html>
