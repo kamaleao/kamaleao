@@ -2,13 +2,18 @@ import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import markdoc from '@astrojs/markdoc';
 
+import cloudflare from '@astrojs/cloudflare';
+
 export default defineConfig({
   output: 'static',
+
   integrations: [
     react(), 
     markdoc()
   ],
+
   base: '/',
+
   // Configuração reforçada para o Netlify Studio
   vite: {
     server: {
@@ -18,9 +23,12 @@ export default defineConfig({
       ]
     }
   },
+
   // Algumas versões do Astro/Netlify pedem isso aqui também:
   server: {
     host: true,
     allowedHosts: true
-  }
+  },
+
+  adapter: cloudflare()
 });
